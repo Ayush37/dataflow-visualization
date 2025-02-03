@@ -1,0 +1,82 @@
+{
+    "workflowName": "Data Processing Pipeline",
+    "description": "A real-time data processing pipeline divided into AWS, Oracle Exadata, and Hadoop stages, with dependencies and connections.",
+    "categories": [
+      {
+        "name": "AWS",
+        "stages": [
+          {
+            "id": "FRI",
+            "name": "FRI",
+            "upstreamNodes": ["EVEREST"],
+            "downstreamNodes": ["LRI_Calculators"],
+            "status": "not_started"
+          },
+          {
+            "id": "FRW",
+            "name": "FRW",
+            "upstreamNodes": ["EVEREST"],
+            "downstreamNodes": ["LRI_Calculators"],
+            "status": "not_started"
+          },
+          {
+            "id": "RDR",
+            "name": "RDR",
+            "upstreamNodes": ["EVEREST"],
+            "downstreamNodes": ["LRI_Calculators"],
+            "status": "not_started"
+          },
+          {
+            "id": "LRI_Calculators",
+            "name": "LRI Calculators",
+            "upstreamNodes": ["FRI", "FRW", "RDR"],
+            "downstreamNodes": ["CASHFLOW"],
+            "status": "not_started"
+          },
+          {
+            "id": "CASHFLOW",
+            "name": "CASHFLOW",
+            "upstreamNodes": ["LRI_Calculators"],
+            "downstreamNodes": ["SLS_DETAILS"],
+            "status": "not_started"
+          },
+          {
+            "id": "EVEREST",
+            "name": "EVEREST",
+            "upstreamNodes": ["UPSTREAM_FEEDS"],
+            "downstreamNodes": ["FRI", "FRW", "RDR"],
+            "status": "not_started"
+          },
+          {
+            "id": "UPSTREAM_FEEDS",
+            "name": "UPSTREAM FEEDS",
+            "upstreamNodes": [],
+            "downstreamNodes": ["EVEREST"],
+            "status": "not_started"
+          },
+          {
+            "id": "SLS_DETAILS",
+            "name": "SLS_DETAILS",
+            "upstreamNodes": ["CASHFLOW","RDR"],
+            "downstreamNodes": ["Intercompany"],
+            "status": "not_started"
+          },
+          {
+            "id": "Intercompany",
+            "name": "Intercompany",
+            "upstreamNodes": ["SLS_DETAILS"],
+            "downstreamNodes": ["SNU"],
+            "status": "not_started"
+          },
+          {
+            "id": "SNU",
+            "name": "SNU",
+            "upstreamNodes": ["SLS_DETAILS"],
+            "downstreamNodes": [""],
+            "status": "not_started"
+          }
+
+        ]
+      }
+    ]
+}
